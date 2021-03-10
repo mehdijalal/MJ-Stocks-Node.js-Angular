@@ -1,0 +1,84 @@
+using System;
+
+namespace ConsoleApp6
+{
+    class Program
+    {
+        private const string Alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+        class LetterOffset
+        {
+            public int Offset;
+            public int Index;
+
+            public LetterOffset(int offset, int index)
+            {
+                Offset = offset;
+                Index = index;
+            }
+
+            public override string ToString()
+            {
+                return "Offset: " + Offset + "; Index: " + Index;
+            }
+        }
+
+        static string Solution(LetterOffset[] offsets)
+        {
+            string output = string.Empty;
+
+            Char prevChar = Alphabet[0];
+
+            for (int i = 0; i < offsets.Length; i++)
+            {
+                Console.WriteLine("prevChar: " + prevChar);
+                Console.WriteLine("Current Offset: " + offsets[i]);
+                //Console.WriteLine("----"+prevChar);
+                int prevCharOffset = Alphabet.IndexOf(prevChar) - 1;
+                Console.WriteLine("----" + prevCharOffset);
+                Console.WriteLine("==========" + offsets[i].Offset);
+                Console.WriteLine("--------" + Alphabet.Length);
+                int targetOffset = (prevCharOffset + offsets[i].Offset) % Alphabet.Length; //gdlntfclmm
+                //int targetOffset =Alphabet.Length% (prevCharOffset + offsets[i].Offset); //cbhfjpinkj
+                Console.WriteLine("===" + targetOffset);
+                int targetLetterPosition = targetOffset + offsets[i].Index;
+
+                Char newChar = Alphabet[targetLetterPosition];
+
+                output = newChar.ToString();
+
+                prevChar += newChar;
+            }
+
+            return output;
+        }
+
+        static void Main(string[] args)
+        {
+            LetterOffset[] offsets = new LetterOffset[10];
+
+            int[] input = new int[10]
+            {
+                7,
+               -3,
+                7,
+                0,
+                3,
+                8,
+                -8,
+                3,
+                -6,
+                -8,
+            };
+
+            for (int i = 0; i < 10; i++)
+            {
+                offsets[i] = new LetterOffset(input[i], i);
+            }
+
+            Console.WriteLine("Desired Output : helloworld");
+
+            Console.WriteLine("Actual Output : " + Solution(offsets));
+        }
+    }
+}

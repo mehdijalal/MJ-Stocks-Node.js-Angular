@@ -1,0 +1,12 @@
+<div >
+    <div>
+      <!-- <p>{{title}}</p> -->
+    </div>
+    <mat-dialog-content>
+      <span>{{message}}</span>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button *ngIf="no!=='logout'" mat-button class="seneca-button" color="primary" (click)="onDismiss()">{{no}}</button>
+      <button mat-raised-button class="seneca-button" color="primary" (click)="onConfirm()">{{yes}}</button>
+    </mat-dialog-actions>
+  </div>

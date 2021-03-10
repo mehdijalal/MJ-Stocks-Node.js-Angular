@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+@import 'stylemj-color-palette.scss';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$mj-app-primary: mat-palette($mj-primary-indigo-palette,A900, A100, A400);
+/*---------To have customized the color-------------*/
+//$mj-app-primary: mat-palette($mj-primary-indigo-palette,A400, A100, A400);
+$mj-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$mj-app-warn: mat-palette($mat-red);
+/*---------adding custom color--------*/
+//$mj-app-warn: mat-palette($mat-red, A400, A100, A100);
+
+$mj-app-cyan: mat-palette($mat-cyan);
+$mj-app-amber: mat-palette($mat-amber);
+$mj-app-indigo: mat-palette($mat-indigo);
+
+$mj-app-theme: mat-light-theme(
+  $mj-app-indigo,
+  $mj-app-amber,
+  $mj-app-warn
+);
+
+@include angular-material-theme($mj-app-theme);
+
+
+// $candy-app-primary: mat-palette($mat-indigo);
+// $candy-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+
+
+// $candy-app-warn:    mat-palette($mat-red);
+
+// $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+// @include angular-material-theme($candy-app-theme);

@@ -1,0 +1,135 @@
+<div class="mj-container">
+  <!-- <h1 class="mat-h1">Tasks</h1> -->
+  <div class="tasks-newform-content">
+    
+   
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Tasks List
+          <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>All Tasks</button>
+            <button mat-menu-item>Pending</button>
+            <button mat-menu-item>Completed</button>
+          </mat-menu>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div>
+          <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. etc">
+          </mat-form-field>
+          <div class="taskaction-box">
+            <!-- <button mat-raised-button color="warn" (click)="deleteAllSelectedTasks()"
+              [disabled]="!selection.hasValue() && !isAllSelected()">Delete All</button> -->
+            <button mat-raised-button color="primary" routerLink="/tasks/alltasks/addnew">Add Task</button>
+            
+          </div>
+          <!-- <div fxLayout="row" fxLayoutAlign="space-around center" style="height:100%" *ngIf="loadingdata">
+            <mat-spinner diameter="50" strokeWidth="5"></mat-spinner>
+          </div> -->
+          <div *ngIf="loadingdata">
+            <!-- <mat-spinner diameter="50" strokeWidth="5"></mat-spinner> -->
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation(); "
+                  (change)="updateStatus(row.TaskID,$event);$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row) || row.Status" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="taskname">
+              <th mat-header-cell *matHeaderCellDef> Task </th>
+              <td mat-cell *matCellDef="let element"> {{element.TaskName}} </td>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.TaskName | replace : 'a' : 'c999'}} </td> -->
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef> Category </th>
+              <td mat-cell *matCellDef="let element"> {{element.CategoryName}} </td>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.TaskName | replace : 'a' : 'c999'}} </td> -->
+            </ng-container>
+           
+
+            <!-- Symbol Column -->
+           <ng-container matColumnDef="startdate">
+              <th mat-header-cell *matHeaderCellDef [hidden]="tableResponsiveColumns"> Start Date </th>
+              <td mat-cell *matCellDef="let element" [hidden]="tableResponsiveColumns">
+                 <!--{{element.StartDate |  date: 'mediumDate'}} -->
+                 <!--- I have added a moment pipe dateFormat--------->
+                {{element.StartDate |  mjdateFormat: 'MMMM DD YYYY'}} 
+              </td>
+            </ng-container>
+             <!-- Name Column -->
+             <ng-container matColumnDef="starttime">
+              <th mat-header-cell *matHeaderCellDef> Start time </th>
+              <td mat-cell *matCellDef="let element"> {{element.StartTime}} </td>
+              <!-- <td mat-cell *matCellDef="let element"> {{element.TaskName | replace : 'a' : 'c999'}} </td> -->
+            </ng-container>
+            <ng-container matColumnDef="enddate">
+              <th mat-header-cell *matHeaderCellDef [hidden]="tableResponsiveColumns"> Due Date </th>
+              <td mat-cell *matCellDef="let element" [hidden]="tableResponsiveColumns">
+                <!-- {{element.EndDate |  dateFormat: 'MMMM DD YYYY'}}  -->
+                <!--- I have added a moment pipe dateFormat--------->
+                {{element.EndDate |  mjdateFormat: 'MMMM DD YYYY'}} 
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef [hidden]="tableResponsiveColumns"> Complete </th>
+              <td mat-cell *matCellDef="let element" [hidden]="tableResponsiveColumns">
+                {{element.Status ? 'Yes' : 'No' }} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let element">
+                <!-- <mat-icon class="delete-box" (click)="deleteTask(element.TaskID); $event.stopPropagation()">
+                  delete_forever</mat-icon> -->
+                  <!-- <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu2" aria-label="Toggle menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button> -->
+                  <mat-icon class="delete-box" (click)="$event.stopPropagation()" [matMenuTriggerFor]="menu2">delete_forever</mat-icon>
+                  <mat-menu #menu2="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="deleteTask(element.TaskID);">Delete Occurrence</button>
+                    <button mat-menu-item (click)="deleteAllTaskInThisSeries(element.RepeatTypeGuidForSeries);">Delete Series</button>
+                  </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <!-- <tr mat-row *matRowDef="let element; let row; columns: displayedColumns;"
+                (click)="selection.toggle(row)" [routerLink]="['/tasks/officetasks/addnew/', element.OfficeTaskID]">
+                </tr> -->
+
+            <tr mat-row *matRowDef="let element; let row; columns: displayedColumns;"
+              routerLink="/tasks/alltasks/addnew/{{element.TaskID}}">
+            </tr>
+            <!-- <tr mat-row *matRowDef="let element; let row; columns: displayedColumns;"
+              [routerLink]="['./addtask/', element.TaskID]">
+            </tr> -->
+
+
+
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons> </mat-paginator>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

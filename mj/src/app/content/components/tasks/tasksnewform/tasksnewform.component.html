@@ -1,0 +1,164 @@
+<div fxLayout="column" class="mj-container">
+  <!-- <h1 class="mat-h1">Tasks</h1> -->
+  <div class="tasks-newform-content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          Tasks Form
+          <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>Expand</button>
+            <button mat-menu-item>Remove</button>
+          </mat-menu>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div>
+          <form class="form-container" [formGroup]="taskForm" #newsFeedform="ngForm" (ngSubmit)="taskAction()">
+            <div class="row-one input-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+              <mat-form-field id="taskname" appearance="outline">
+                <input matInput placeholder="Task *" formControlName="TaskName" required>
+                <mat-label>Task name</mat-label>
+                <mat-error>Task is required</mat-error>
+              </mat-form-field>
+              <mat-form-field id="status" appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select matInput placeholder="Category " formControlName="CategoryID">
+                  <ng-container>
+
+                    <mat-option *ngFor="let itemCategory of category" [value]="itemCategory.ID">
+                      {{itemCategory.Name}}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="row-three input-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px" >
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="StartDate" (dateChange)="setEndDateChange($event)" placeholder="Start date *" [min]="sDate"
+                  formControlName="StartDate">
+                <mat-label>Start Date *</mat-label>
+                <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+                <mat-datepicker #StartDate></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field id="thestarttime" appearance="outline">
+                <mat-label>Start Time</mat-label>
+                <mat-select matInput placeholder="Starttime " formControlName="StartTimeID" (selectionChange)="setEndTime($event)">
+                  <ng-container>
+
+                    <mat-option *ngFor="let itemStarttime of starttime" [value]="itemStarttime.ID">
+                      {{itemStarttime.Name}}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+          
+            </div>
+           
+            <div class="row-one input-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="EndDate" placeholder="End date *" [min]="mDate" formControlName="EndDate" >
+                <mat-label>End date*</mat-label>
+                <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+                <mat-datepicker #EndDate></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field id="theendtime" appearance="outline">
+                <mat-label>End Time</mat-label>
+                <mat-select matInput placeholder="End Time " formControlName="EndTimeID">
+                  <ng-container>
+
+                    <mat-option *ngFor="let itemendtime of starttime" [value]="itemendtime.ID">
+                      {{itemendtime.Name}}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="id<=0">
+              <button type="button" (click)="makeItRecurring();"  *ngIf="!isRecuringTask" mat-button color="primary" aria-label="Make it recurring">
+                <mat-icon>sync</mat-icon> Make Recurring
+              </button>
+              <button type="button" matTooltip="Remove recurring" matTooltipClass="mj-small-tooltip" (click)="removeRecuring();" *ngIf="isRecuringTask" mat-button color="accent" aria-label="Remove recurring">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="isRecuringTask">
+              <mat-form-field id="status" appearance="outline">
+                <mat-label>Repeat Type</mat-label>
+                <mat-select matInput #mjfocus placeholder="Repeat Type " formControlName="RepeatTypeID" (selectionChange)="onRepeatChange($event)" required>
+                  <ng-container>
+
+                    <mat-option *ngFor="let itemRepeattype of repeattypes" [value]="itemRepeattype.ID">
+                      {{itemRepeattype.Name}}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              <!-- <div class="row-one input-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px" *ngFor="let wdItems of WeekDays; let i=index">
+                <mat-checkbox formArrayName="SelectedWeekDays" [value]="wdItems.Weekdayid" >{{wdItems.Weekdayname}}</mat-checkbox>
+              </div> -->
+              <div *ngIf="isShowSelectedDays">
+                <mat-form-field appearance="fill">
+                  <mat-label>Select Week days</mat-label>
+                  <mat-select formControlName="SelectedWeekDays" multiple required>
+                    <mat-option *ngFor="let wdItems of weekdays" [value]="wdItems.Code">{{wdItems.Name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          
+            <div class="mj-task-description">
+              <mat-accordion>           
+                  <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                       
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Add details {{panelOpenState ? 'open' : 'closed'}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="row-foure">
+                      <div id="quill">
+                        <quill-editor [styles]="editorStyle" placeholder="Enter Description" 
+                            formControlName="Description" >
+                        </quill-editor>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <!-- <div class="row-foure">
+                      <div id="quill">
+                        <quill-editor [styles]="editorStyle" placeholder="Enter Description" 
+                            formControlName="Description" >
+                        </quill-editor>
+                      </div>
+                    </div> -->
+            <div class="row-five" fxLayout="row wrap" fxLayoutAlign="space-between">
+
+              <button mat-raised-button color="info" *ngIf="id>0" [routerLink]="['../../']" class="mjbuttons"
+                type="button">Back to list</button>
+              <button mat-raised-button color="info" *ngIf="id<=0" [routerLink]="['../']" class="mjbuttons"
+                type="button">Back to list</button>
+
+              <div>
+                <button mat-raised-button color="accent" type="button"
+                  (click)="newsFeedform.ngSubmit.emit();saveAndClose();" [disabled]="!newsFeedform.valid"
+                  class="mjbuttons">Save & Close</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!newsFeedform.valid"
+                  class="mjbuttons">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

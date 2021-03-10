@@ -1,0 +1,61 @@
+<mat-toolbar color="primary">
+   <button mat-button  (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button> 
+  <button mat-button routerLink="/">
+    <img src="../assets/img/mylogo.svg" class="logoimage">
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container >
+  <mat-sidenav mode="side" [(opened)]="opened" fullscreen >
+    <!-- <div><button mat-button routerLink="/dashboard" class="left-menu-buttons">Dashboard</button></div>
+    <div><button mat-button routerLink="/posts" class="left-menu-buttons">Posts List</button></div>
+    <div><button mat-button routerLink="/requests" class="left-menu-buttons">Requests List</button></div> -->
+    <mat-nav-list *ngFor="let link of navLinks">
+      <mat-list-item *ngIf="!showPanelItem(link, isExpanded)" routerLinkActive="active-link"
+        matTooltip="{{link.label}}" matTooltipPosition="right" [matTooltipDisabled]="isExpanded">
+        <mat-icon mat-list-icon [routerLink]="link.link">
+
+          {{ link.iconName }}</mat-icon>
+        <span mat-line *ngIf="isExpanded" [routerLink]="link.link">{{ link.label }}</span>
+      </mat-list-item>
+
+      <mat-expansion-panel class="mat-elevation-z0 " *ngIf="showPanelItem(link, isExpanded)"
+        routerLinkActive="active-link" [expanded]="(activeLinkUrl)==link.link ">
+        <mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+          <mat-panel-title>
+            <mat-icon mat-list-icon>{{ link.iconName }}</mat-icon>
+            <div class="mat-padding-left">
+              <span mat-line *ngIf="isExpanded">{{ link.label }}</span>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <span *ngFor="let childLink of link.children">
+          <a [routerLink]="childLink.link" routerLinkActive="active-link">
+            <mat-list-item>
+              <div class="mat-expansion-panel-padding-left"></div>
+              {{ childLink.label }}
+            </mat-list-item>
+          </a>
+        </span>
+      </mat-expansion-panel>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+
+
+

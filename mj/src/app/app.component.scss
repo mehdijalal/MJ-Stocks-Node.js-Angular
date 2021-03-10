@@ -1,0 +1,232 @@
+.example-events {
+    width: auto;
+    height: auto;
+    overflow: auto;
+    border: 1px solid #555;
+  }
+  .mat-sidenav, .mat-sidenav-content {
+    height: 500px;
+    min-width: 200px;
+  }
+
+  .mat-toolbar-row, .mat-toolbar-single-row {
+    height: 50px;
+}
+// .left-menu-buttons{
+//   border-radius: 2px;
+//   background-color:#EEEEEE;
+//   margin-bottom: 1px;
+//   min-width: 200px;
+  
+// }
+.main-content{
+  margin: 5px;
+}
+.logoimage{
+  max-width: 250px;
+}
+
+//--------copy past----------//
+@media all {
+  .mj-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .mj-sidenav-container {
+    flex: 1;
+    overflow: unset;
+    padding-top: 10px;
+  }
+
+  .mat-nav-list mat-icon {
+    color:#3f51b5;
+  }
+
+  /* side nav */
+  // #top-sidenav .mj-header-menu {
+  //   margin-right: 15px;
+  // }
+
+  // .mat-icon-button:focus,
+  // .mat-icon-button:hover {
+  //   background: rgba(0, 0, 0, 0.05);
+  // }
+
+  // .divider-20 {
+  //   height: 20px;
+  // }
+
+  // .sideNavExpanded.sideNavTouch {
+  //   top: 0;
+  // }
+
+  .sideNavCollapsed .mat-nav-list {
+    margin: 0;
+  }
+
+  .mat-list-base .mat-list-item {
+    height: 40px;
+  }
+
+  .sideNavExpanded .mat-list-base .mat-list-item {
+    border-radius: 0px 20px 20px 0px;
+  }
+
+  // .mat-list-base {
+  //   margin-right: 10px;
+  //   padding: unset;
+  // }
+
+  .mat-expansion-panel-header {
+    padding: 0 20px;
+  }
+
+  ::ng-deep .mat-expansion-panel-content .mat-expansion-panel-body {
+    padding: unset;
+  }
+
+  /* end side nav */
+  /* panel's top item's left margin */
+  .mat-padding-left {
+    padding-left: 20px;
+  }
+
+  mat-expansion-panel, mat-list-item {
+    border-radius: 0px 20px 20px 0px;
+  }
+
+  /* panel's children menu items left margin */
+  .mat-expansion-panel-padding-left {
+    padding-left: 70px;
+  }
+
+  /* half close side nav */
+  .mat-list-item.active-link,
+  .active-link .mat-expansion-panel-header {
+    color: #ffffff;
+    background: #98d1f7;
+  }
+
+  .mat-list-item.active-link:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #da291c;
+  }
+
+  /* full open side nav*/
+  .mat-expansion-panel-header:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+  }
+  /*---Note: > means: It will target elements which are DIRECT children of a particular element.-----*/
+  .active-link>.mat-list-item {
+    color: #da291c;
+    font-weight: 600;
+  }
+
+  ::ng-deep .mat-expansion-panel-header-description,
+  .mat-expansion-panel-header-title {
+    color: inherit;
+  }
+
+  .active-link mat-icon {
+    color: inherit;
+  }
+
+  mat-expansion-panel-header:hover mat-icon {
+    color: #da291c;
+  }
+
+  mat-expansion-panel-header:hover .mat-padding-left,
+  ::ng-deep mat-expansion-panel-header:hover .mat-expansion-indicator {
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  ::ng-deep .mat-expansion-indicator::after {
+    color: inherit;
+  }
+
+  .sideNavExpanded {
+    width: 290px;
+    position: fixed;
+    top: 50px;
+  }
+
+  .sideNavCollapsed {
+    width: 64px;
+    position: fixed;
+    top: 50px;
+  }
+
+  ::ng-deep .mat-expansion-indicator {
+    padding-bottom: 8px;
+  }
+
+  /* panel's top item's title */
+
+  /* Mat drawer  */
+  .mat-drawer-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .mat-drawer-container {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    overflow: unset !important;
+  }
+
+  /* header */
+  .mat-toolbar-row,
+  .mat-toolbar-single-row,
+  .mat-toolbar-multiple-rows {
+    height: 50px;
+    min-height: 50px;
+    padding: 0 5px;
+  }
+
+  .mj-header {
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+  }
+
+  .mj-header-row {
+    justify-content: space-between;
+  }
+
+  /* class for header right element */
+  .header-left-item {
+    display: flex;
+    align-items: center;
+  }
+
+  /* .mj-header-menu {
+    width: 24px;
+  } */
+
+  .my-header-logo {
+    display: flex;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+  /* class for header right element */
+  .header-right-item {
+    font-size: 16px;
+  }
+
+}

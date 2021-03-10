@@ -1,0 +1,27 @@
+<div>
+  
+    <mat-dialog-content class="mat-typography">
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div><strong>Task Name: </strong> <span>{{taskname}}</span></div>
+            <div><strong>Category: </strong> <span>{{category}}</span></div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div><strong>Start Date: </strong><span>{{startdate}}</span></div>
+            <div><strong>Due Date: </strong><span>{{enddate}}</span></div>
+        </div>
+        <!-- <mat-card-content *ngIf="textContent">
+            <div class="ql-container ql-snow" style="border-width: 0;">
+            <div class="ql-editor" [innerHTML]="textContent">
+            </div>
+            </div>        
+        </mat-card-content> -->
+        <hr />
+        <mat-card-actions>
+            <button mat-button color="primary" (click)="onConfirm()">Marke as Complete</button>
+            <button mat-button color="accent" (click)="editTask(taskId);">Edit</button>
+            <button mat-button color="warn" (click)="closeWindow();">Close</button>
+
+        </mat-card-actions>
+    </mat-dialog-content>
+
+</div>

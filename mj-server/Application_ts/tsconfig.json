@@ -1,0 +1,23 @@
+{
+	//"extends": "./tsconfig2",
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "esnext",			
+		"outDir": "../Application/",
+		"noLib": false,
+		"sourceMap": true,
+		"watch": true,
+		"noImplicitAny": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"baseUrl": "./",
+		"skipLibCheck": true
+	},
+	"include": [
+		"**/*.ts"
+	],
+	"exclude": [
+		"/node_modules"
+	]
+
+}

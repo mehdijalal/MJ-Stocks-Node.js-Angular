@@ -1,0 +1,148 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+
+   <mat-card>
+     <mat-card-content>
+      <div fxLayout="row wrap" fxLayoutAlign="space-between">
+         <div id="box-left" class="leftbox-responsive" >
+           <mat-card>
+             <div class="card-div-content"  fxLayout="row wrap" fxFlex="599" fxLayoutAlign="space-between">
+              <div class="tasks-buttons-div">
+                <mat-card>
+                  <mat-card-header>
+                      <span>
+                        Due Today 
+                        (<a [routerLink]="['/tasks/alltasks/category/', all,currentDate]" class="heading-link"> {{_totalTasksDueToday}}</a> )
+                      </span>
+                  </mat-card-header>
+                  <mat-card-content class="task-buttons-content-div">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                      <div  >
+                        <div  *ngFor="let rec of _myTasksDueToday_part1"  class="btn-div">
+                          <button mat-stroked-button color="warn" 
+                            [matBadge]="rec.totaltasks" matBadgePosition="after" matBadgeColor="accent" class="btn-tasks" [routerLink]="['/tasks/alltasks/category/', rec.CategoryID,currentDate]">{{rec.CategoryName}}
+                          </button>
+                        </div>
+                      </div>
+                      <div  >
+                        <div  *ngFor="let rec of _myTasksDueToday_part2"  class="btn-div">
+                          <button mat-stroked-button color="warn" 
+                            [matBadge]="rec.totaltasks" matBadgePosition="after" matBadgeColor="accent" class="btn-tasks" [routerLink]="['/tasks/alltasks/category/', rec.CategoryID,currentDate]">{{rec.CategoryName}}
+                          </button>
+                        </div>
+                      </div>
+              
+                    </div>
+                    <!-- <div class="aligncenter">
+                      <button mat-mini-fab color="accent" [routerLink]="['/tasks/alltasks/category/', all,currentDate]">All</button>
+                    </div> -->
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="tasks-buttons-div">
+                <mat-card>
+                  <mat-card-header>
+                      <span>Due Tomorrow (<a [routerLink]="['/tasks/alltasks/category/', all,tomorrow]" class="heading-link"> {{_totalTasksDueTomorrow}}</a> )
+                      </span>
+                  </mat-card-header>
+                  <mat-card-content class="task-buttons-content-div">
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                      <div>
+                        <div  *ngFor="let rec of _myTasksDueTomorrow_part1"  class="btn-div">
+                          <button mat-stroked-button color="accent"
+                            [matBadge]="rec.totaltasks" matBadgePosition="after" matBadgeColor="accent" class="btn-tasks" [routerLink]="['/tasks/alltasks/category/', rec.CategoryID,tomorrow]">{{rec.CategoryName}}
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div  *ngFor="let rec of _myTasksDueTomorrow_part2"  class="btn-div">
+                          <button mat-stroked-button color="accent"
+                            [matBadge]="rec.totaltasks" matBadgePosition="after" matBadgeColor="warn" class="btn-tasks" [routerLink]="['/tasks/alltasks/category/', rec.CategoryID,tomorrow]">{{rec.CategoryName}}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="tasks-buttons-div">
+                <mat-card>
+                  <mat-card-header>
+                      <span>Due next 7 days (<a [routerLink]="['/tasks/alltasks/categorywithstartend/', all,currentDate,next7days]" class="heading-link"> {{_totalTasksDueNext7days}}</a> )</span>
+                     
+                  </mat-card-header>
+                  <mat-card-content class="task-buttons-content-div">
+                   
+                    <div fxLayout="row wrap" fxLayoutAlign="space-between">
+                      <div>
+                        <div  *ngFor="let rec of _myTasksDueNext7days_part1"  class="btn-div">
+                          <button mat-stroked-button 
+                            [matBadge]="rec.totaltasks" matBadgePosition="after" matBadgeColor="accent" class="btn-tasks" [routerLink]="['/tasks/alltasks/categorywithstartend/', rec.CategoryID,currentDate,next7days]">{{rec.CategoryName}}
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <div  *ngFor="let rec of _myTasksDueNext7days_part2"  class="btn-div">
+                          <button mat-raised-button
+                            [matBadge]="rec.totaltasks" matBadgePosition="after" matBadgeColor="accent" class="btn-tasks" [routerLink]="['/tasks/alltasks/categorywithstartend/', rec.CategoryID,currentDate,next7days]">{{rec.CategoryName}}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="aligncenter">
+                      <button mat-mini-fab color="accent" [routerLink]="['/tasks/alltasks/categorywithstartend/', all,currentDate,next7days]">All</button>
+                    </div> -->
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+           </mat-card>
+         </div>
+         <div id="box-right"  class="rightbox-responsive" >
+            <mat-card>
+              
+              <div class="card-div-content"    fxLayout="column" fxFlexFill>
+                <div>
+                  <div>
+                    <h3>Status last and next 15 days</h3>
+                    <form class="form-container" [formGroup]="taskForm" #newsFeedform="ngForm" (ngSubmit)="searchByDates()">
+                      <div class="row-three input-row" fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="20px" fxLayoutGap.lt-sm="0px" >
+                        <mat-form-field appearance="outline" fxFlex="47">
+                          <input matInput [matDatepicker]="StartDate" (dateChange)="setEndDateChange($event)" placeholder="Start date *" [min]="sDate"
+                            formControlName="StartDate">
+                          <mat-label>Start Date *</mat-label>
+                          <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
+                          <mat-datepicker #StartDate></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="47">
+                          <input matInput [matDatepicker]="EndDate" (dateChange)="setSearchByDates($event)" placeholder="End date *" [min]="mDate" formControlName="EndDate" >
+                          <mat-label>End date*</mat-label>
+                          <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
+                          <mat-datepicker #EndDate></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                    </form>
+                  </div>
+                  <canvas baseChart 
+                    [data]="pieChartData" 
+                    [labels]="pieChartLabels" 
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend"
+                    [colors]="pieChartColors"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event,lastdays,nextdays)"
+                    >
+                  </canvas>
+                </div>
+              </div>
+            </mat-card>
+         </div>
+      </div>
+     </mat-card-content>
+  </mat-card>
+  
+ 
+
+</div>

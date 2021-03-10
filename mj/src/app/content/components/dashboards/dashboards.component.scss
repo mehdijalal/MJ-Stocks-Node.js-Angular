@@ -1,0 +1,170 @@
+.grid-container {
+  margin: 20px;
+}
+
+.dashboard-card {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+
+.btn-div{
+  margin: 0.3rem;
+}
+.btn-tasks{
+  min-width: 100px;
+  width: 1vw;
+}
+.tasks-buttons-div{
+  margin: 3px;
+}
+.task-buttons-content-div{
+  min-height: 45vh;
+}
+.btn-small-transform{
+  transform: scale(.5);
+
+}
+.btn-small-transform2{
+  transform: scale(.5);
+}
+.card-div-content{
+  background-color: #eeeeee;
+  display: inline-block;
+  padding: 0.5vw;
+}
+.leftbox-responsive{
+  width: 55%; 
+  height: 100%;
+}
+.rightbox-responsive{
+  width: 43%; 
+  height: 100%;
+}
+.btn-all-in-heading{
+  background-color: #1bc453;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 3px;
+}
+.heading-link{
+  text-decoration: none;
+  font-weight: bold;
+}
+/*---When you put ::ng-deep it will effect other components when load through rout---*/
+// ::ng-deep .mat-card-header{
+//   background-color:rgb(241, 47, 47) ;
+//   padding:5px;
+//   border-top-left-radius: 5px;
+//   border-top-right-radius: 5px;
+//   color: #ffffff;
+// }
+ .mat-card-header{
+  background-color:rgb(241, 47, 47) ;
+  padding:5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #ffffff;
+}
+
+::ng-deep .mat-card{
+  padding:0 !important;
+}
+
+::ng-deep .mat-card-content{
+  padding:1rem;
+}
+
+.aligncenter{
+  text-align: center;
+}
+
+.testcolor{
+  color: #b3f1b3
+}
+
+@media only screen and (max-width: 600px) {
+  .leftbox-responsive{
+    width: 100%; 
+    height: 100%;
+  }
+  .rightbox-responsive{
+    width: 100%; height: 100%;
+  }
+  .btn-div{
+    margin: 0.1rem;
+
+  }
+  .btn-tasks{
+    min-width: 90px;
+    width: 0.5vw;
+  }
+  .tasks-buttons-div{
+    margin: 1px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .leftbox-responsive{
+    width: 100%; 
+    height: 100%;
+  }
+  .rightbox-responsive{
+    width: 100%; height: 100%;
+    margin-top: 5px;
+  }
+  .btn-div{
+    margin: 0.1rem;
+
+  }
+  .btn-tasks{
+    min-width: 150px;
+   
+  }
+  .tasks-buttons-div{
+    margin: 1px;
+  }
+  .task-buttons-content-div{
+    min-height: 40vh;
+ 
+  }
+ 
+}
+@media only screen and (max-width: 1024px) {
+  .leftbox-responsive{
+    width: 100%; 
+    height: 100%;
+  }
+  .rightbox-responsive{
+    width: 100%; height: 100%;
+    margin-top: 5px;
+  }
+  .btn-div{
+    margin: 0.1rem;
+
+  }
+  .btn-tasks{
+    min-width: 120px;
+   
+  }
+  .tasks-buttons-div{
+    margin: 1px;
+  }
+  .task-buttons-content-div{
+    min-height: 20vh;
+ 
+ 
+  }
+ 
+}
